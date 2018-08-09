@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     hasReplayScreenName() {
-      return !!this.tweet.in_reply_to_screen_name;
+      return !!this.tweet.in_reply_to_screen_name && this.tweet.in_reply_to_status_id;
     },
     isRetweeted() {
       return this.payload.retweeted;
