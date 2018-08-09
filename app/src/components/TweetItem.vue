@@ -27,18 +27,23 @@
         </div>
         <nav class="level is-mobile">
           <div class="level-left">
-            <a class="level-item">
+            <a class="level-item" @click.prevent="goToTweet(tweet.id_str)">
               <span class="icon is-small"><i class="fas fa-reply"></i></span>
             </a>
             <a class="level-item">
-              <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+              <div :class="{'has-text-success': tweet.retweeted}">
+                <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                <span class="is-size-6" v-if="!!tweet.retweet_count">
+                  {{tweet.retweet_count}}
+                </span>
+              </div>
             </a>
             <a class="level-item">
               <div :class="{'has-text-danger': tweet.favorited}">
-                <span class="icon is-small">
-                  <i class="fas fa-heart"></i>
+                <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                <span class="is-size-6" v-if="!!tweet.favorite_count">
+                  {{tweet.favorite_count}}
                 </span>
-                <span class="is-size-6">{{tweet.favorite_count}}</span>
               </div>
             </a>
           </div>
@@ -77,6 +82,9 @@ export default {
     },
     isRetweeted() {
       return this.payload.retweeted;
+    },
+    goToTweet(tweetId) {
+      window.open(`https://twitter.com/${this.tweetOwner.screen_name}/status/${tweetId}`);
     },
   },
 };
